@@ -1,2 +1,2 @@
-   const baseUrl = 'http://localhost:5001/api';
+   const baseUrl = 'https://school-operations-app-xtiw-api.vercel.app/api';
    export {baseUrl}
