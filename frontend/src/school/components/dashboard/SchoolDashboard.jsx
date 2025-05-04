@@ -5,6 +5,8 @@ import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import PreviewIcon from '@mui/icons-material/Preview';
 
+import { SchoolIcon } from "../../../icons/SchoolIcon";
+
 // ChartJS setup
 import {
   Chart as ChartJS,
@@ -20,6 +22,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import CustomizedSnackbars from "../../../basic utility components/CustomizedSnackbars";
+import { StudentIcon } from "../../../icons/StudentIcon";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -304,6 +307,7 @@ const handleSubmit = (e)=>{
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Item>
             <Paper sx={{ p: 2 }}>
+              <SchoolIcon />
               <Typography variant="h6">Total Students</Typography>
               <Typography variant="h4">{totalStudents}</Typography>
             </Paper>
@@ -314,6 +318,7 @@ const handleSubmit = (e)=>{
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Item>
             <Paper sx={{ p: 2 }}>
+              <StudentIcon width={"50px"} height={"50px"} />
               <Typography variant="h6">Total Teachers</Typography>
               <Typography variant="h4">{totalTeachers}</Typography>
             </Paper>
