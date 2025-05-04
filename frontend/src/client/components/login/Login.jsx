@@ -93,7 +93,7 @@ export default function Login() {
                 onSubmit={Formik.handleSubmit}
             >
                  <FormControl sx={{ minWidth: "120px", padding: "5px" }}>
-                    <InputLabel id="demo-simple-select-label" >User Type</InputLabel>
+                    <InputLabel id="demo-simple-select-label" >User Type </InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
