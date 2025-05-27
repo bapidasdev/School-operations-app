@@ -31,7 +31,7 @@ const bcrypt = require("bcrypt");
 
 const studentSchema = new mongoose.Schema({
     school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    email: { type: String, required: true, unique: true }, // Added unique constraint for emails
+    email: { type: String, required: true, unique: true }, 
     name: { type: String, required: true },
     student_class: { type: mongoose.Schema.ObjectId, ref: "Class" },
     age: { type: String, required: true },
@@ -46,9 +46,9 @@ const studentSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 
-// 🔐 Pre-save hook: Hash password before saving
+
 studentSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next(); // Only hash if password changed
+    if (!this.isModified("password")) return next(); 
 
     try {
         const salt = await bcrypt.genSalt(10);

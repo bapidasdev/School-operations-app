@@ -24,8 +24,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-const corsOptions = {exposedHeaders:"Authorization"}
-app.use(cors(corsOptions));
+// const corsOptions = {exposedHeaders:"Authorization"}
+// app.use(cors(corsOptions));
+app.use(cors({ origin: '*' }));
 
 // MONGODB CONNECTION
 // mongoose.connect(`mongodb://localhost:27017/school_management`).then(db=>{
