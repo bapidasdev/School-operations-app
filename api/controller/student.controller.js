@@ -312,52 +312,7 @@ module.exports = {
 
 
 
-    changeStudentPassword : async (req, res) => {
-        try {
-            const { oldPassword, newPassword } = req.body;
-
-            if (!oldPassword || !newPassword) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Both old and new passwords are required.",
-                });
-            }
-
-            const studentId = req.user.id; // From auth middleware
-            const student = await Student.findById(studentId);
-
-            if (!student) {
-                return res.status(404).json({
-                    success: false,
-                    message: "Student not found.",
-                });
-            }
-
-            const isMatch = await bcrypt.compare(oldPassword, student.password);
-
-            if (!isMatch) {
-                return res.status(401).json({
-                    success: false,
-                    message: "Old password is incorrect.",
-                });
-            }
-
-            // Set and save the new password (will be hashed by pre-save)
-            student.password = newPassword;
-            await student.save();
-
-            res.status(200).json({
-                success: true,
-                message: "Password changed successfully.",
-            });
-        } catch (error) {
-            console.error("Error in changeStudentPassword:", error.message);
-            res.status(500).json({
-                success: false,
-                message: "Server error while changing password.",
-            });
-        }
-    }
+    
 
 
     //  -------------------------------------------------------------------------
