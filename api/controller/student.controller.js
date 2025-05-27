@@ -311,8 +311,36 @@ module.exports = {
     //     }
 
 
+    changeStudentPassword: async (req, res) => {
+        try {
+            const { newPassword } = req.body;
 
-    
+            if (!newPassword) {
+                return res.status(400).json({ success: false, message: "New password is required." });
+            }
+
+            const studentId = req.user.id; // From auth middleware
+
+            if (!studentId) {
+                return res.status(401).json({ success: false, message: "Unauthorized. Please log in." });
+            }
+
+            const student = await Student.findById(studentId);
+
+            if (!student) {
+                return res.status(404).json({ success: false, message: "Student not found." });
+            }
+
+            student.password = newPassword; // Pre-save hook will hash this
+            await student.save();
+
+            res.status(200).json({ success: true, message: "Password changed successfully." });
+        } catch (error) {
+            console.error("Error in changeStudentPassword:", error);
+            res.status(500).json({ success: false, message: "Server error while changing password." });
+        }
+    }
+
 
 
     //  -------------------------------------------------------------------------
