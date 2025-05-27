@@ -1,5 +1,5 @@
 const express = require("express");
-const { getStudentWithQuery, loginStudent,updateStudentWithId,getStudentWithId,signOut,isStudentLoggedIn, getOwnDetails, registerStudent, deleteStudentWithId, changeStudentPassword  } = require("../controller/student.controller");
+const { getStudentWithQuery, loginStudent,updateStudentWithId,getStudentWithId,signOut,isStudentLoggedIn, getOwnDetails, registerStudent, deleteStudentWithId,   } = require("../controller/student.controller");
 const authMiddleware = require("../auth/auth");
 const router = express.Router();
 
@@ -15,6 +15,6 @@ router.get("/is-login",  isStudentLoggedIn);
 
 
 //add this line only
-router.post("/change-password", authMiddleware(['STUDENT']), changeStudentPassword);
+// router.post("/change-password", authMiddleware(['STUDENT']), changeStudentPassword);
 
 module.exports = router;   

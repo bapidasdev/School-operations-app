@@ -279,36 +279,36 @@ module.exports = {
 
 
 // ---------------------------------------------------------------------------------------
-changeStudentPassword: async (req, res) => {
-        try {
-            const { oldPassword, newPassword } = req.body;
+// changeStudentPassword: async (req, res) => {
+//         try {
+//             const { oldPassword, newPassword } = req.body;
 
-            if (!oldPassword || !newPassword) {
-                return res.status(400).json({ success: false, message: "Both old and new passwords are required." });
-            }
+//             if (!oldPassword || !newPassword) {
+//                 return res.status(400).json({ success: false, message: "Both old and new passwords are required." });
+//             }
 
-            const studentId = req.user.id; // From auth middleware
-            const student = await Student.findById(studentId);
+//             const studentId = req.user.id; // From auth middleware
+//             const student = await Student.findById(studentId);
 
-            if (!student) {
-                return res.status(404).json({ success: false, message: "Student not found." });
-            }
+//             if (!student) {
+//                 return res.status(404).json({ success: false, message: "Student not found." });
+//             }
 
-            const isMatch = await bcrypt.compare(oldPassword, student.password);
+//             const isMatch = await bcrypt.compare(oldPassword, student.password);
 
-            if (!isMatch) {
-                return res.status(401).json({ success: false, message: "Old password is incorrect." });
-            }
+//             if (!isMatch) {
+//                 return res.status(401).json({ success: false, message: "Old password is incorrect." });
+//             }
 
-            student.password = newPassword; // Will be hashed by pre-save hook
-            await student.save();
+//             student.password = newPassword; // Will be hashed by pre-save hook
+//             await student.save();
 
-            res.status(200).json({ success: true, message: "Password changed successfully." });
-        } catch (error) {
-            console.error("Error in changeStudentPassword:", error);
-            res.status(500).json({ success: false, message: "Server error while changing password." });
-        }
-    }
+//             res.status(200).json({ success: true, message: "Password changed successfully." });
+//         } catch (error) {
+//             console.error("Error in changeStudentPassword:", error);
+//             res.status(500).json({ success: false, message: "Server error while changing password." });
+//         }
+//     }
 
 
     //  -------------------------------------------------------------------------
