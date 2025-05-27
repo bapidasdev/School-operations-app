@@ -1,5 +1,5 @@
 const express = require("express");
-const { getStudentWithQuery, loginStudent,updateStudentWithId,getStudentWithId,signOut,isStudentLoggedIn, getOwnDetails, registerStudent, deleteStudentWithId } = require("../controller/student.controller");
+const { getStudentWithQuery, loginStudent,updateStudentWithId,getStudentWithId,signOut,isStudentLoggedIn, getOwnDetails, registerStudent, deleteStudentWithId, changeStudentPassword  } = require("../controller/student.controller");
 const authMiddleware = require("../auth/auth");
 const router = express.Router();
 
@@ -11,6 +11,10 @@ router.get("/fetch-own", authMiddleware(['STUDENT']), getOwnDetails);
 router.get("/fetch-single/:id", authMiddleware(['STUDENT','SCHOOL']), getStudentWithId);
 router.delete("/delete/:id",authMiddleware(['SCHOOL']),  deleteStudentWithId)
 router.get("/sign-out", signOut);
-router.get("/is-login",  isStudentLoggedIn)
+router.get("/is-login",  isStudentLoggedIn);
 
-module.exports = router;
+
+//add this line only
+router.post("/change-password", authMiddleware(['STUDENT']), changeStudentPassword);
+
+module.exports = router;   

@@ -69,8 +69,8 @@ module.exports = {
                             age: fields.age[0],
                             gender: fields.gender[0],
                             address: fields.address[0],
-                            dob:fields.dob[0],
-                            blood_group:fields.blood_group[0],
+                            dob: fields.dob[0],
+                            blood_group: fields.blood_group[0],
                             student_image: originalFileName,
                             password: hashPassword,
                             school: req.user.id
@@ -273,6 +273,45 @@ module.exports = {
             console.log("Error in isStudentLoggedIn", error);
             res.status(500).json({ success: false, message: "Server Error in Student Logged in check. Try later" })
         }
+    },
+
+
+
+
+// ---------------------------------------------------------------------------------------
+changeStudentPassword: async (req, res) => {
+        try {
+            const { oldPassword, newPassword } = req.body;
+
+            if (!oldPassword || !newPassword) {
+                return res.status(400).json({ success: false, message: "Both old and new passwords are required." });
+            }
+
+            const studentId = req.user.id; // From auth middleware
+            const student = await Student.findById(studentId);
+
+            if (!student) {
+                return res.status(404).json({ success: false, message: "Student not found." });
+            }
+
+            const isMatch = await bcrypt.compare(oldPassword, student.password);
+
+            if (!isMatch) {
+                return res.status(401).json({ success: false, message: "Old password is incorrect." });
+            }
+
+            student.password = newPassword; // Will be hashed by pre-save hook
+            await student.save();
+
+            res.status(200).json({ success: true, message: "Password changed successfully." });
+        } catch (error) {
+            console.error("Error in changeStudentPassword:", error);
+            res.status(500).json({ success: false, message: "Server error while changing password." });
+        }
     }
 
+
+    //  -------------------------------------------------------------------------
+
 }
+
